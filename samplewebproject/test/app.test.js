@@ -1,14 +1,14 @@
 const assert = require("assert");
 
 it("Has a text input", async () => {
-  const dom = await render("./index.html");
+  const dom = await render("index.html");
 
   const input = dom.window.document.querySelector("input");
   assert(input);
 });
 
 it("shows a success message with valid email", async () => {
-  const dom = await render("./index.html");
+  const dom = await render("index.html");
 
   const email = "abc@xyz.com";
 
@@ -23,7 +23,7 @@ it("shows a success message with valid email", async () => {
 });
 
 it("shows a fail message with invalid email", async () => {
-  const dom = await render("./index.html");
+  const dom = await render("index.html");
 
   const email = "abcxyz.com";
 
