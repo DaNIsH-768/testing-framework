@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const kleur = require("kleur");
+const render = require("./render.js");
 
 const forbiddenDirs = ["node_modules"];
 
@@ -31,14 +32,16 @@ class Runner {
       console.log(`---> Running ${file.shortName}`);
       const beforeEaches = [];
 
+      global.render = render;
+
       global.beforeEach = (fn) => {
         beforeEaches.push(fn);
       };
 
-      global.it = (desc, fn) => {
+      global.it = async (desc, fn) => {
         beforeEaches.forEach((func) => func());
         try {
-          fn();
+          await fn();
           console.log(kleur.green(`\t✔ OK - ${desc}`));
         } catch (err) {
           console.log(kleur.red(`\t✖ Fail - ${desc}`));
